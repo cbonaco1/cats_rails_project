@@ -1,3 +1,10 @@
+<ul>
+  <% cat.errors.full_messages.each do |message| %>
+    <li>
+      <%= message %>
+    </li>
+  <% end %>
+</ul>
 
 <% if cat.persisted? %>
   <% action = cat_url(cat.id) %>
@@ -40,9 +47,12 @@
   <input type="date" name="cat[birth_date]" value="<%= cat.birth_date %>"><br><br>
 
   <label for="cat_description">Description</label>
-  <textarea name="cat[description]" value="<%= cat.description %>"><%= cat.description %>
-  </textarea><br><br>
+  <textarea name="cat[description]" value="<%= cat.description %>"><%= cat.description %></textarea><br><br>
 
-  <button type="submit">Add Cat</button>
+  <% if my_method == "post" %>
+    <button type="submit">Add Cat</button>
+  <% else %>
+    <button type="submit">Update Cat</button>
+  <% end %>
 
 </form>

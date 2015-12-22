@@ -19,7 +19,7 @@ class CatsController < ApplicationController
     if @cat.save
       redirect_to cat_url(@cat)
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -33,7 +33,7 @@ class CatsController < ApplicationController
     if @cat.update(cat_params)
       redirect_to cat_url(@cat)
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
