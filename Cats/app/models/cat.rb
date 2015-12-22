@@ -17,7 +17,15 @@ class Cat < ActiveRecord::Base
   #presence of birth_date, name, sex
   validates :birth_date, :name, :sex, presence: true
 
+  has_many(
+    :cat_rental_requests,
+    :class_name => 'CatRentalRequest',
+    :foreign_key => :cat_id,
+    :primary_key => :id
+  )
+
   #converts birth_date to age
   def age
+    (Time.now.to_date - self.birth_date).to_i / 365
   end
 end
