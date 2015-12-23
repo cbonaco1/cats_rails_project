@@ -4,7 +4,8 @@ class User < ActiveRecord::Base
   validates :username, :password_digest, presence: true
 
   def reset_session_token!
-    self.session_token = nil
+    self.session_token = SecureRandom.urlsafe_base64
+    save!
   end
 
   def password=(password)
