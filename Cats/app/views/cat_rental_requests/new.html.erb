@@ -1,22 +1,21 @@
 <h1>New Cat Rental Form</h1>
 
-<% if flash[:errors] %>
-  <% flash[:errors].each do |error| %>
-   <%= error %><br />
-  <% end %>
-<% end %>
-
 <form action="<%= cat_rental_requests_url %>" method="post">
 
-  <label>Cat Name
-    <input type="text" name="cat_rental_requests[name]" value="">
+  <label>Cat:
+    <select name="cat_rental_requests[cat_id]">
+      <option></option>
+     <% Cat.all.each do |cat| %>
+       <option value="<%= cat.id %>"><%= cat.name %></option>
+     <% end %>
+    </select>
   </label>
 
-  <label>Start Date
+  <label>Start Date:
     <input type="date" name="cat_rental_requests[start_date]" value="">
   </label>
 
-  <label>End Date
+  <label>End Date:
     <input type="date" name="cat_rental_requests[end_date]" value="">
   </label>
 

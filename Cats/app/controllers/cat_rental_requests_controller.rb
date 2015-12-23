@@ -6,21 +6,11 @@ class CatRentalRequestsController < ApplicationController
   end
 
   def create
-    cat_name_entered = params[:cat_rental_requests][:name]
-    cat_to_rent = Cat.find_by_name(cat_name_entered)
-    unless cat_to_rent
-      #render plain: "Cat name not found"
-      flash[:errors] << "Cat name not found!"
-      redirect_to new_cat_rental_request_url
+    @request = CatRentalRequest.new(request_params)
+    if @request.save
+      redirect_to cat_rental_request_url(@request)
     else
-      params[:cat_rental_requests][:cat_id] = cat_to_rent.id
-
-      @request = CatRentalRequest.new(request_params)
-      if @request.save
-        redirect_to cat_rental_request_url(@request)
-      else
-        render :new
-      end
+      render :new
     end
   end
 
