@@ -68,3 +68,9 @@ next_week2 = CatRentalRequest.create!(
   start_date: "2015/12/27",
   end_date: "2015/12/29"
 )
+
+User.destroy_all
+
+luke = User.create!(username: "Luke", password: "skywalker")
+christian = User.create!(username: "Christian", password: "bonacore")
+bryant = User.create!(username: "Bryant", password: "Curtis")

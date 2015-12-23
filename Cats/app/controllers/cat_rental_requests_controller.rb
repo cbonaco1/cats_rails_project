@@ -52,6 +52,7 @@ class CatRentalRequestsController < ApplicationController
   end
 
   def current_cat
+    #Dont actually run a SELECT query here bc of includes in current_cat_rental_request
     current_cat_rental_request.cat
   end
 end
