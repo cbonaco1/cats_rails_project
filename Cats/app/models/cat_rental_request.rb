@@ -28,7 +28,7 @@ class CatRentalRequest < ActiveRecord::Base
       errors[:base] << "Cannot add rentals which conflict"
     end
 
-    # conflicts
+    conflicts
 
   end
 
@@ -47,6 +47,10 @@ class CatRentalRequest < ActiveRecord::Base
 
   def approved?
     self.status == "APPROVED"
+  end
+
+  def pending?
+    self.status == "PENDING"
   end
 
   def deny!
