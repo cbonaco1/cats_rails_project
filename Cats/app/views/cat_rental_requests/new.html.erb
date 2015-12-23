@@ -1,0 +1,25 @@
+<h1>New Cat Rental Form</h1>
+
+<% if flash[:errors] %>
+  <% flash[:errors].each do |error| %>
+   <%= error %><br />
+  <% end %>
+<% end %>
+
+<form action="<%= cat_rental_requests_url %>" method="post">
+
+  <label>Cat Name
+    <input type="text" name="cat_rental_requests[name]" value="">
+  </label>
+
+  <label>Start Date
+    <input type="date" name="cat_rental_requests[start_date]" value="">
+  </label>
+
+  <label>End Date
+    <input type="date" name="cat_rental_requests[end_date]" value="">
+  </label>
+
+  <button>Submit</button>
+
+</form>

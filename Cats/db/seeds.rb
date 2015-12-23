@@ -46,25 +46,25 @@ felix = Cat.create!(
 CatRentalRequest.destroy_all
 
 now = CatRentalRequest.create!(
-  cat_id: 1,
+  cat_id: sennacy.id,
   start_date: "2015/12/22",
   end_date: "2015/12/24"
 )
 
 yesterday = CatRentalRequest.create!(
-  cat_id: 1,
+  cat_id: garfield.id,
   start_date: "2015/12/21",
   end_date: "2015/12/23"
 )
 
 next_week1 = CatRentalRequest.create!(
-  cat_id: 2,
+  cat_id: breakfast.id,
   start_date: "2015/12/30",
   end_date: "2015/12/31"
 )
 
 next_week2 = CatRentalRequest.create!(
-  cat_id: 2,
+  cat_id: felix.id,
   start_date: "2015/12/27",
   end_date: "2015/12/29"
 )

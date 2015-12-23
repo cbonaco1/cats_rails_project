@@ -28,6 +28,8 @@ class CatRentalRequest < ActiveRecord::Base
       errors[:base] << "Cannot add rentals which conflict"
     end
 
+    # conflicts
+
   end
 
   def overlapping_approved_requests
@@ -37,7 +39,6 @@ class CatRentalRequest < ActiveRecord::Base
   def overlapping_pending_requests
     overlapping_requests.where("status = 'PENDING'")
   end
-
 
 
   def denied?
@@ -58,7 +59,8 @@ class CatRentalRequest < ActiveRecord::Base
       self.status = "APPROVED"
       self.save! # key point
 
-      overlapping_pending_requests.update_all(:status = "DENIED")
+      #For all other overlapping requests, set to DENIED
+      overlapping_pending_requests.update_all(status: "DENIED")
     end
   end
 
