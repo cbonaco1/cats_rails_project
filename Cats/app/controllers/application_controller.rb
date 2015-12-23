@@ -18,4 +18,12 @@ class ApplicationController < ActionController::Base
   def sign_out!
 
   end
+
+  def redirect_if_logged_in
+    unless session[:session_token].nil?
+      redirect_to cats_url
+    else
+
+    end
+  end
 end
