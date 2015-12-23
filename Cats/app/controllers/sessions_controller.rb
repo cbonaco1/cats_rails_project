@@ -1,7 +1,6 @@
 class SessionsController < ApplicationController
 
   def new
-
     render :new
   end
 
@@ -10,7 +9,6 @@ class SessionsController < ApplicationController
 
     if user
       user.reset_session_token!
-      #assign user.session_token
       session[:session_token] = user.session_token
       redirect_to cats_url
     else
@@ -18,6 +16,14 @@ class SessionsController < ApplicationController
       render :new
     end
 
+  end
+
+  def destroy
+    if current_user
+      current_user.reset_session_token!
+      session[:session_token] = nil
+    end
+    redirect_to new_session_url
   end
 
   private
