@@ -27,36 +27,39 @@ class CatRentalRequest < ActiveRecord::Base
     unless conflicts.empty?
       errors[:base] << "Cannot add rentals which conflict"
     end
-    #
-    # <<-SQL
-    # SELECT
-    #   cat_id
-    # FROM
-    #   cat_rental_requests
-    # WHERE
-    #   end_date IN (
-    #   SELECT
-    #     start_date
-    #   FROM
-    #     cat_rental_requests
-    #   WHERE
-    #     start_date < end_date
-    #   ) AND start_date IN (
-    #     SELECT
-    #       end_date
-    #     FROM
-    #       cat_rental_requests
-    #     WHERE
-    #       end_date > start_date
-    #     );
-    #   SQL
-
-    #all requests for a time
 
   end
 
   def overlapping_approved_requests
-    #all approved requests for a time
+    overlapping_requests.where("status = 'APPROVED'")
+  end
+
+  def overlapping_pending_requests
+    overlapping_requests.where("status = 'PENDING'")
+  end
+
+
+
+  def denied?
+    self.status == "DENIED"
+  end
+
+  def approved?
+    self.status == "APPROVED"
+  end
+
+  def deny!
+    self.status = "DENIED"
+    self.save! # key point
+  end
+
+  def approve!
+    transaction do
+      self.status = "APPROVED"
+      self.save! # key point
+
+      overlapping_pending_requests.update_all(:status = "DENIED")
+    end
   end
 
 end
