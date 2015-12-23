@@ -8,8 +8,7 @@ class SessionsController < ApplicationController
     user = User.find_by_credentials(params[:session][:username],params[:session][:password])
 
     if user
-      user.reset_session_token!
-      session[:session_token] = user.session_token
+      sign_in!(user)
       redirect_to cats_url
     else
       #login failed

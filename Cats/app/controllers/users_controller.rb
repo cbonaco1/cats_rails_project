@@ -7,7 +7,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      redirect_to new_session_url
+      sign_in!(@user)
+      redirect_to cats_url
     else
       render :new
     end
